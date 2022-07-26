@@ -4097,10 +4097,10 @@ instruct loadI2L(iRegLNoSp dst, memory mem)
   match(Set dst (ConvI2L (LoadI mem)));
 
   ins_cost(LOAD_COST * 4);
- format %{ "lw    $dst.lo,$mem\n\t"
-           "lw    $dst.hi,$dst.lo\n\t"
-           "mv    $mem,31\n\t"
-           "srl   $dst.hi,dst.hi,$mem\t# int, #@loadI2L" %}
+  format %{ "lw    $dst.lo,$mem\n\t"
+            "lw    $dst.hi,$dst.lo\n\t"
+            "mv    $mem,31\n\t"
+            "srl   $dst.hi,dst.hi,$mem\t# int, #@loadI2L" %}
   ins_encode %{
     __ lw(as_Register($dst$$reg), Address(as_Register($mem$$base), $mem$$disp));
     __ lw(as_Register($dst$$reg)->successor(), as_Register($dst$$reg));
